@@ -57,6 +57,7 @@ export function createOutputDirs(): string {
     let seconds = date.getSeconds()
     let dirname = "generated/" + day + "." + month + "." + year + "_" + hours + ":" + minutes + ":" + seconds
 
+    if (!fs.existsSync("generated/")) fs.mkdirSync("generated", (err: any) => { if (err) return console.error(err); });
     fs.mkdirSync(dirname, (err: any) => { if (err) return console.error(err); });
     fs.mkdirSync(`${dirname}/md`, (err: any) => { if (err) return console.error(err); });
     fs.mkdirSync(`${dirname}/png`, (err: any) => { if (err) return console.error(err); });
