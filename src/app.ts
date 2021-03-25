@@ -72,7 +72,7 @@ function generateStateVariables(numStates: number, addStart: boolean = true, add
         states.push(stateDiagramVocab.end)
     }
     for (let i = 0; i < numStates - states.length; i++) {
-        states.push(`s${i}`)
+        states.push(`${stateDiagramVocab.state}${i}`)
     }
     return states
 }

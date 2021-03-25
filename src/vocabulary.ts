@@ -1,6 +1,6 @@
 const stateDiagramVocab: StateDiagramVocab =
 {
-    state: "",
+    state: "s",
     transition: "-->",
     start: "[*]",
     end: "[*]",
