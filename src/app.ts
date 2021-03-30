@@ -59,7 +59,7 @@ function generateStateDiagram(numStates: number, numTransitions: number): Diagra
         mmdString += generateStateVarDescStr(stateVariableDescriptions)
     }
 
-    mmdString += randomStateTransitions(stateVariables, stateDiagramVocab.transition, numTransitions)
+    mmdString += randomStateTransitions(stateVariables, numTransitions)
     return mmdString
 }
 
@@ -71,7 +71,8 @@ function generateStateVariables(numStates: number, addStart: boolean = true, add
     if (addEnd) {
         states.push(stateDiagramVocab.end)
     }
-    for (let i = 0; i < numStates - states.length; i++) {
+    let missingStates = numStates - states.length
+    for (let i = 0; i < missingStates; i++) {
         states.push(`${stateDiagramVocab.state}${i}`)
     }
     return states
@@ -101,21 +102,21 @@ function generateStateVarDescStr(stateVariableDescriptions: StateVariableWithDes
     return stateVarDescStr
 }
 
-function transitionStates(state1: StateDiagramVocab["state"], state2: StateDiagramVocab["state"], transition: StateDiagramVocab["transition"], descriptionSign: StateDiagramVocab["description"] = "", description: string = ""): string {
-    let t: string = state1 + " " + transition + " " + state2
+function transitionStates(state1: StateDiagramVocab["state"], state2: StateDiagramVocab["state"], descriptionSign: StateDiagramVocab["description"] = "", description: string = ""): string {
+    let t: string = state1 + " " + stateDiagramVocab.transition + " " + state2
     if (description !== "") {
         t += descriptionSign + " " + description
     }
     return t
 }
 
-function randomStateTransitions(states: StateDiagramVocab["state"][], transition: StateDiagramVocab["transition"], numTransitions: number): string {
+function randomStateTransitions(states: StateDiagramVocab["state"][], numTransitions: number): string {
     let permutations = ""
     for (let i = 0; i < numTransitions; i++) {
         permutations += "\t"
         let randomstate1 = states[Math.floor(Math.random() * states.length)];
         let randomstate2 = states[Math.floor(Math.random() * states.length)];
-        permutations += transitionStates(randomstate1, randomstate2, transition)
+        permutations += transitionStates(randomstate1, randomstate2)
         if (i != numTransitions - 1) {
             permutations += "\n"
         }
